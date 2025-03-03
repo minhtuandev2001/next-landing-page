@@ -23,17 +23,24 @@ export default async function page(context: Props) {
       }
     );
     // lấy danh sách sectionRender
-    resPonselistSectionsRender = landingPage?.template?.templateSections
-      ? landingPage?.template?.templateSections.map((templateSection: any) => {
-          let section = templateSection.section;
-          section.configs = section.configs.map((config: any) => {
-            config.sample = dataConfig[section.component]
-              ? dataConfig[section.component][config.prop]
-              : config.sample;
-            return config;
-          });
-          return section;
-        })
+    resPonselistSectionsRender = landingPage?.template?.sections
+      ? landingPage?.template?.sections
+          .filter((section: any) =>
+            landingPage?.configs?.sections.some(
+              (sectionConfig: any) =>
+                sectionConfig.component === section.component
+            )
+          )
+          .map((section: any) => {
+            let sectionTemp = section;
+            sectionTemp.configs = sectionTemp.configs.map((config: any) => {
+              config.sample = dataConfig[sectionTemp.component]
+                ? dataConfig[sectionTemp.component][config.prop]
+                : config.sample;
+              return config;
+            });
+            return sectionTemp;
+          })
       : [];
   }
   return (

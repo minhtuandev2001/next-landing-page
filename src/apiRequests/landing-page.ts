@@ -3,7 +3,7 @@ export async function getLandingPageBySubDomain(subDomain: string) {
   const res = await fetch(
     `${process.env.BACKEND_ENDPOINT}/landing-page/view/${subDomain}`,
     {
-      cache: "force-cache",
+      cache: "no-cache",
     }
   );
   let data = await res.json();

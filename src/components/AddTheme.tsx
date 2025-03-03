@@ -1,10 +1,12 @@
 "use client";
 import { handleColorChange } from "@/utils/common";
-import React from "react";
+import React, { useEffect } from "react";
 
 export default function AddTheme({ theme }: { theme: any }) {
-  if (theme) {
-    handleColorChange(theme);
-  }
+  useEffect(() => {
+    if (theme) {
+      handleColorChange(theme);
+    }
+  }, [theme]);
   return <div></div>;
 }
